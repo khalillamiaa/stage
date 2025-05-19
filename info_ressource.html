@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - EPSI Étudiants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="info_ressource.css">
+    <link rel="stylesheet" href="formation.css">
+    <style>
+        :root {
+            --epsi-purple: #2B124C;
+            --epsi-yellow: #FFCC00;
+            --epsi-white: #FFFFFF;
+            --epsi-grey: #F5F5F5;
+            --epsi-dark-grey: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--epsi-grey);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header .logo img {
+            height: 50px;
+            width: auto;
+        }
+        header nav a {
+            color: var(--epsi-white);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: var(--epsi-yellow);
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        h1 {
+            color: var(--epsi-purple);
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .lead {
+            color: var(--epsi-dark-grey);
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        section {
+            background-color: var(--epsi-white);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: var(--epsi-purple);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        p {
+            color: var(--epsi-dark-grey);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        .list-group-item {
+            border: none;
+            padding: 10px 0;
+            color: var(--epsi-dark-grey);
+        }
+        .list-group-item a {
+            color: var(--epsi-purple);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .list-group-item a:hover {
+            color: var(--epsi-yellow);
+        }
+        footer {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="C:\xampp\htdocs\projet_stage\epsi_300.jpg" alt="Logo EPSI">
+            </div>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="#sante">Santé</a>
+                <a href="#logement">Logement</a>
+                <a href="#administration">Administration</a>
+                <a href="#finance">Finances & Transports</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="text-center mb-5">
+            <h1>Services pour les Étudiants Étrangers</h1>
+            <p class="lead">Trouvez ici toutes les informations nécessaires pour faciliter votre installation et votre parcours à l'EPSI.</p>
+        </section>
+        
+        <section id="sante">
+            <h2>🩺 Santé</h2>
+            <p>Informations sur la couverture santé et les services médicaux disponibles pour les étudiants étrangers.</p>
+            <ul class="list-group">
+                <li class="list-group-item">✔️ <a href="https://www.ameli.fr/" target="_blank">Assurance maladie et mutuelles étudiantes</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.etudiant.gouv.fr/fr/sante-et-aides-sociales-1466" target="_blank">Consultations médicales gratuites ou à tarif réduit</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.doctolib.fr/" target="_blank">Adresses des centres médicaux et hôpitaux proches de l'EPSI</a></li>
+            </ul>
+        </section>
+        
+        <section id="logement">
+            <h2>🏠 Logement</h2>
+            <p>Conseils pour trouver un logement adapté à proximité de l'école.</p>
+            <ul class="list-group">
+                <li class="list-group-item">✔️ <a href="https://www.crous.fr/" target="_blank">Plateformes de recherche de logement étudiant</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.service-public.fr/particuliers/vosdroits/F12006" target="_blank">Aides financières et bourses pour le logement</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.seloger.com/" target="_blank">Contacts des résidences étudiantes et agences immobilières</a></li>
+            </ul>
+        </section>
+        
+        <section id="administration">
+            <h2>📑 Administration</h2>
+            <p>Aide pour les démarches administratives essentielles.</p>
+            <ul class="list-group">
+                <li class="list-group-item">✔️ <a href="https://france-visas.gouv.fr/" target="_blank">Procédure d'obtention du visa étudiant</a></li>
+                <li class="list-group-item">✔️ <a href="https://etudiant-etranger.ameli.fr/" target="_blank">Inscription à la sécurité sociale française</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.service-public.fr/particuliers/vosdroits/N110" target="_blank">Documents nécessaires pour une demande de titre de séjour</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.enic-naric.net/france.aspx" target="_blank">Faire reconnaître en France un diplôme obtenu à l'étranger</a></li>
+            </ul>
+        </section>
+        
+        <section id="finance">
+            <h2>💰 Finances & Transports</h2>
+            <p>Informations pour économiser sur les frais obligatoires et les transports.</p>
+            <ul class="list-group">
+                <li class="list-group-item">✔️ <a href="https://www.etudiant.gouv.fr/fr/cvec-une-contribution-pour-la-vie-etudiante-et-de-campus-2497" target="_blank">Paiement de la CVEC</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.crous.fr/bourses/" target="_blank">Aides et bourses pour les étudiants</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.iledefrance-mobilites.fr/titres-et-tarifs/passe-navigo" target="_blank">Carte Navigo : Réductions pour les étudiants</a></li>
+                <li class="list-group-item">✔️ <a href="https://www.etudiant.gouv.fr/fr/restauration-1471" target="_blank">Repas étudiants à prix réduit au Crous</a></li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 EPSI - Tous droits réservés.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

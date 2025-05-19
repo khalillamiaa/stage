@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - EPSI Étudiants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --epsi-purple: #2B124C;
+            --epsi-yellow: #FFCC00;
+            --epsi-white: #FFFFFF;
+            --epsi-grey: #F5F5F5;
+            --epsi-dark-grey: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--epsi-grey);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        header .logo img:hover {
+            transform: scale(1.05);
+        }
+        header nav a {
+            color: var(--epsi-white);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: var(--epsi-yellow);
+        }
+        .hero {
+            background: linear-gradient(rgba(43, 18, 76, 0.85), rgba(43, 18, 76, 0.85)), url('https://via.placeholder.com/1600x400/2B124C/ffffff?text=Services+EPSI');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--epsi-white);
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 6px solid var(--epsi-yellow);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        section {
+            background-color: var(--epsi-white);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(4) { animation-delay: 0.8s; }
+        section:nth-child(5) { animation-delay: 1s; }
+        h2 {
+            color: var(--epsi-purple);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        h2 i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        p {
+            color: var(--epsi-dark-grey);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .list-group-item {
+            border: none;
+            padding: 12px 0;
+            color: var(--epsi-dark-grey);
+            display: flex;
+            align-items: center;
+        }
+        .list-group-item i {
+            color: var(--epsi-yellow);
+            margin-right: 10px;
+        }
+        .list-group-item a {
+            color: var(--epsi-purple);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .list-group-item a:hover {
+            color: var(--epsi-yellow);
+        }
+        #integration .accordion-button {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            font-weight: 600;
+        }
+        #integration .accordion-button:not(.collapsed) {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+        }
+        footer {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+        .footer-contact h5 {
+            color: var(--epsi-yellow);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        .footer-contact .contact-info {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        .footer-contact .contact-info i {
+            margin-right: 12px;
+            color: var(--epsi-yellow);
+        }
+        .footer-social a {
+            color: var(--epsi-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .footer-social a:hover {
+            color: var(--epsi-yellow);
+        }
+        #chatbot-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background-color: var(--epsi-white);
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        #chatbot-container.active {
+            display: flex;
+        }
+        #chatbot-header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        #chatbot-close {
+            background: none;
+            border: none;
+            color: var(--epsi-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        #chatbot-close:hover {
+            color: var(--epsi-yellow);
+        }
+        #chatbot-messages {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            color: var(--epsi-dark-grey);
+        }
+        #chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid var(--epsi-grey);
+        }
+        #chatbot-input input {
+            flex-grow: 1;
+            border: 1px solid var(--epsi-grey);
+            border-radius: 5px;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        #chatbot-input button {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #chatbot-input button:hover {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+        }
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #chatbot-toggle:hover {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            transform: scale(1.1);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/60x60/2B124C/ffffff?text=EPSI" alt="Logo EPSI">
+            </div>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="services.html">Services</a>
+                <a href="formations.html">Formations</a>
+                <a href="formulaire.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Services pour Étudiants Étrangers</h1>
+            <p>Tout ce dont vous avez besoin pour réussir votre installation et vos études à EPSI.</p>
+        </section>
+
+        <section id="sante">
+            <h2><i class="bi bi-heart-pulse"></i> Santé</h2>
+            <p>Accédez aux informations essentielles pour votre couverture santé et vos soins en France.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.ameli.fr/" target="_blank">Assurance maladie et mutuelles étudiantes</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.etudiant.gouv.fr/fr/sante-et-aides-sociales-1466" target="_blank">Consultations gratuites ou à tarif réduit</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.doctolib.fr/" target="_blank">Centres médicaux proches d’EPSI</a></li>
+            </ul>
+        </section>
+
+        <section id="logement">
+            <h2><i class="bi bi-house-door"></i> Logement</h2>
+            <p>Trouvez un logement adapté près de votre campus avec nos ressources.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.crous.fr/" target="_blank">Recherche de logement étudiant</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.service-public.fr/particuliers/vosdroits/F12006" target="_blank">Aides financières pour le logement</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.seloger.com/" target="_blank">Résidences et agences immobilières</a></li>
+            </ul>
+        </section>
+
+        <section id="administration">
+            <h2><i class="bi bi-file-earmark-text"></i> Administration</h2>
+            <p>Guides pour réussir vos démarches administratives en France.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://france-visas.gouv.fr/" target="_blank">Obtention du visa étudiant</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://etudiant-etranger.ameli.fr/" target="_blank">Inscription à la sécurité sociale</a></li>
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.service-public.fr/particuliers/vosdroits/N110" target="_blank">Demande de titre de séjour</a></li>
+            </ul>
+        </section>
+
+        <section id="diplome">
+            <h2><i class="bi bi-award"></i> Reconnaissance des Diplômes Étrangers</h2>
+            <p>Faites reconnaître votre diplôme étranger par l’État français pour poursuivre vos études ou travailler.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="bi bi-check-circle"></i> <a href="https://www.ciep.fr/enic-naric-france" target="_blank">ENIC-NARIC : Faire

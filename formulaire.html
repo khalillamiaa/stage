@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - EPSI Étudiants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/info_ressource.css">
+    <link rel="stylesheet" href="css/formation.css">
+    <style>
+        :root {
+            --epsi-purple: #2B124C;
+            --epsi-yellow: #FFCC00;
+            --epsi-white: #FFFFFF;
+            --epsi-grey: #F5F5F5;
+            --epsi-dark-grey: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--epsi-grey);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header .logo img {
+            height: 50px;
+            width: auto;
+        }
+        header nav a {
+            color: var(--epsi-white);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: var(--epsi-yellow);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            color: var(--epsi-purple);
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .text-center {
+            color: var(--epsi-dark-grey);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .form-container {
+            background-color: var(--epsi-white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .form-label {
+            color: var(--epsi-dark-grey);
+            font-weight: 500;
+        }
+        .form-control, .form-select {
+            border-color: #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--epsi-purple);
+            box-shadow: 0 0 5px rgba(43, 18, 76, 0.3);
+        }
+        .btn {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+        }
+        footer {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .footer-contact h5 {
+            color: var(--epsi-yellow);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .footer-contact .contact-info {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        .footer-contact .contact-info i {
+            margin-right: 10px;
+            color: var(--epsi-yellow);
+        }
+        .email-info {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--epsi-dark-grey);
+            font-size: 1.1rem;
+        }
+        .email-info a {
+            color: var(--epsi-purple);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .email-info a:hover {
+            color: var(--epsi-yellow);
+        }
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background-color: var(--epsi-white);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        #chatbot-header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        #chatbot-close {
+            background: none;
+            border: none;
+            color: var(--epsi-white);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        #chatbot-messages {
+            padding: 15px;
+            flex-grow: 1;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            color: var(--epsi-dark-grey);
+        }
+        #chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        #chatbot-input input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px;
+            margin-right: 10px;
+        }
+        #chatbot-input button {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #chatbot-input button:hover {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+        }
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        #chatbot-toggle:hover {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="C:\xampp\htdocs\projet_stage\epsi_300.jpg" alt="Logo EPSI">
+            </div>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="services.html">Services</a>
+                <a href="formations.html">Formations</a>
+                <a href="formulaire.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Contactez-nous</h1>
+        <p class="text-center">Si vous avez des questions ou des demandes d'informations, n'hésitez pas à remplir ce formulaire. Notre équipe se fera un plaisir de vous répondre dans les plus brefs délais.</p>
+
+        <div class="form-container">
+            <form action="submit_form.php" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nom Complet</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Adresse Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="campus" class="form-label">Campus EPSI</label>
+                    <select class="form-select" id="campus" name="campus" required>
+                        <option value="">Choisissez un campus</option>
+                        <option value="paris">EPSI Paris</option>
+                        <option value="lyon">EPSI Lyon</option>
+                        <option value="toulouse">EPSI Toulouse</option>
+                        <option value="lille">EPSI Lille</option>
+                        <option value="bordeaux">EPSI Bordeaux</option>
+                        <option value="nantes">EPSI Nantes</option>
+                        <option value="rennes">EPSI Rennes</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Sujet</label>
+                    <select class="form-select" id="subject" name="subject" required>
+                        <option value="">Choisissez un sujet</option>
+                        <option value="formations">Formations</option>
+                        <option value="logement">Logement</option>
+                        <option value="visa">Visa et démarches administratives</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        <p class="email-info">Vous pouvez également nous contacter directement à <a href="mailto:support@epsi-etudiants.fr">support@epsi-etudiants.fr</a>.</p>
+    </div>
+
+    <footer class="footer-contact">
+        <div class="container">
+            <p>© 2025 EPSI - Tous droits réservés.</p>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Contact EPSI Paris EMBAS</h5>
+                    <div class="contact-info">
+                        <i class="bi bi-house-door"></i><span>1 Rue de l'Embas, 75002 Paris</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="bi bi-envelope"></i><span>contact@epsi-paris-embas.fr</span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5>Contact EPSI Paris Coubervoie</h5>
+                    <div class="contact-info">
+                        <i class="bi bi-house-door"></i><span>5 Rue Coubèrvoué, 75008 Paris</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="bi bi-envelope"></i><span>contact@epsi-paris-coubervoe.fr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="chatbot-toggle">🤖</button>
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <h3>Assistant EPSI</h3>
+            <button id="chatbot-close">×</button>
+        </div>
+        <div id="chatbot-messages">
+            <p>Salut ! Je suis ici pour aider les étudiants. Pose-moi une question sur la santé, le logement, l’administration, les finances ou les formations !</p>
+        </div>
+        <div id="chatbot-input">
+            <input type="text" id="chatbot-text" placeholder="Tapez votre question...">
+            <button onclick="sendMessage()">Envoyer</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

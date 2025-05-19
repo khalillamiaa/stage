@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations - EPSI Étudiants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --epsi-purple: #2B124C;
+            --epsi-yellow: #FFCC00;
+            --epsi-white: #FFFFFF;
+            --epsi-grey: #F5F5F5;
+            --epsi-dark-grey: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--epsi-grey);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        header .logo img:hover {
+            transform: scale(1.05);
+        }
+        header .navbar-nav .nav-link {
+            color: var(--epsi-white);
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+        header .navbar-nav .nav-link:hover {
+            color: var(--epsi-yellow);
+        }
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(43, 18, 76, 0.85), rgba(43, 18, 76, 0.85)), url('https://via.placeholder.com/1600x600/2B124C/ffffff?text=Formations+EPSI');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--epsi-white);
+            padding: 150px 20px;
+            text-align: center;
+            border-bottom: 8px solid var(--epsi-yellow);
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+        .cta-hero {
+            display: inline-block;
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-hero:hover {
+            transform: scale(1.05);
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+        }
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: var(--epsi-purple);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--epsi-yellow);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .formations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .formation {
+            background: linear-gradient(135deg, #ffffff, #f0f0f5);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        .formation:nth-child(1) { animation-delay: 0.2s; }
+        .formation:nth-child(2) { animation-delay: 0.4s; }
+        .formation:nth-child(3) { animation-delay: 0.6s; }
+        .formation:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        .formation i {
+            font-size: 3rem;
+            color: var(--epsi-purple);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .formation:hover i {
+            transform: scale(1.1);
+        }
+        .formation h3 {
+            color: var(--epsi-purple);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .formation p {
+            color: var(--epsi-dark-grey);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .formation .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .btn-formation {
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-formation:hover {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            transform: scale(1.05);
+        }
+        #why-epsi {
+            background-color: var(--epsi-white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .why-epsi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .why-item {
+            padding: 20px;
+        }
+        .why-item h3 {
+            color: var(--epsi-purple);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .why-item p {
+            color: var(--epsi-dark-grey);
+            font-size: 1.1rem;
+        }
+        footer {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+        .footer-contact h5 {
+            color: var(--epsi-yellow);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        .footer-contact .contact-info {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        .footer-contact .contact-info i {
+            margin-right: 12px;
+        }
+        .footer-social a {
+            color: var(--epsi-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .footer-social a:hover {
+            color: var(--epsi-yellow);
+        }
+        /* Chatbot */
+        #chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            background-color: var(--epsi-white);
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        #chatbot.active {
+            display: block;
+        }
+        #chatbot-header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        #chatbot-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        #chatbot-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-top: 1px solid var(--epsi-grey);
+            border-radius: 0 0 10px 10px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        #chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .formations-container { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/60x60/2B124C/ffffff?text=EPSI" alt="Logo EPSI">
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Formations</a>
+                            <ul class="dropdown-menu" style="background-color: var(--epsi-purple);">
+                                <li><a class="dropdown-item text-white" href="https://www.epsi.fr/formation/developpement-web-mobile" target="_blank">Développement Web & Mobile</a></li>
+                                <li><a class="dropdown-item text-white" href="https://www.epsi.fr/formation/intelligence-artificielle-data" target="_blank">IA & Data Science</a></li>
+                                <li><a class="dropdown-item text-white" href="https://www.epsi.fr/formation/cybersecurite-reseaux" target="_blank">Cybersécurité & Réseaux</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Vos Formations chez EPSI</h1>
+            <p>Rejoignez une école d’excellence en informatique et numérique pour façonner votre avenir.</p>
+            <a href="https://www.epsi.fr/nos-formations" class="cta-hero" target="_blank">Explorez nos programmes</a>
+        </section>
+
+        <section id="formations">
+            <h2>Nos Formations Phares</h2>
+            <div class="formations-container">
+                <div class="formation">
+                    <i class="bi bi-code-slash"></i>
+                    <h3>Développement Web & Mobile</h3>
+                    <p>Créez des expériences numériques modernes avec HTML, CSS, JavaScript et plus encore.</p>
+                    <span class="badge">BTS - Mastère</span>
+                    <a href="https://www.epsi.fr/formation/developpement-web-mobile" class="btn-formation" target="_blank">Découvrir la formation</a>
+                </div>
+                <div class="formation">
+                    <i class="bi bi-robot"></i>
+                    <h3>Intelligence Artificielle & Data</h3>
+                    <p>Maîtrisez l’IA et l’analyse de données pour résoudre les défis technologiques de demain.</p>
+                    <span class="badge">Bachelor - Mastère</span>
+                    <a href="https://www.epsi.fr/formation/intelligence-artificielle-data" class="btn-formation" target="_blank">Découvrir la formation</a>
+                </div>
+                <div class="formation">
+                    <i class="bi bi-shield-lock"></i>
+                    <h3>Cybersécurité & Réseaux</h3>
+                    <p>Protégez le monde numérique avec des compétences avancées en sécurité et réseaux.</p>
+                    <span class="badge">BTS - Mastère</span>
+                    <a href="https://www.epsi.fr/formation/cybersecurite-reseaux" class="btn-formation" target="_blank">Découvrir la formation</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-epsi">
+            <h2>Pourquoi choisir EPSI ?</h2>
+            <div class="why-epsi-container">
+                <div class="why-item">
+                    <h3>95% d’employabilité</h3>
+                    <p>Nos diplômés trouvent un emploi dans les 6 mois grâce à une formation pratique.</p>
+                </div>
+                <div class="why-item">
+                    <h3>Formateurs experts</h3>
+                    <p>Apprenez auprès de professionnels actifs dans l’industrie technologique.</p>
+                </div>
+                <div class="why-item">
+                    <h3>Campus modernes</h3>
+                    <p>Étudiez dans des environnements équipés des dernières technologies.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h5>EPSI Paris EMBAS</h5>
+                <div class="contact-info">
+                    <i class="bi bi-house-door"></i><span>1 Rue de l'Embas, 75002 Paris</span>
+                </div>
+                <div class="contact-info">
+                    <i class="bi bi-envelope"></i><span>contact@epsi-paris-embas.fr</span>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h5>EPSI Paris Coubervoie</h5>
+                <div class="contact-info">
+                    <i class="bi bi-house-door"></i><span>5 Rue Coubèrvoué, 75008 Paris</span>
+                </div>
+                <div class="contact-info">
+                    <i class="bi bi-envelope"></i><span>contact@epsi-paris-coubervoe.fr</span>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+        <p>© 2025 EPSI - Tous droits réservés.</p>
+    </footer>
+
+    <!-- Chatbot -->
+    <button id="chatbot-toggle"><i class="bi bi-chat-dots" style="font-size: 1.5rem;"></i></button>
+    <div id="chatbot">
+        <div id="chatbot-header">Assistant EPSI</div>
+        <div id="chatbot-messages"></div>
+        <input type="text" id="chatbot-input" placeholder="Posez une question sur les formations...">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Chatbot
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbot = document.getElementById('chatbot');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbot.classList.toggle('active');
+            if (chatbot.classList.contains('active') && chatbotMessages.children.length === 0) {
+                addMessage('Assistant EPSI', 'Salut ! Posez-moi une question sur les formations EPSI (ex. : "Développement web ?", "Coût ?", "Durée ?").');
+            }
+        });
+
+        const responses = {
+            "développement web": {
+                reply: "La formation Développement Web & Mobile vous forme à coder des sites et apps avec HTML, CSS, JS, React, etc. Durée : 2 à 5 ans.",
+                suggestion: "Détails : <a href='https://www.epsi.fr/formation/developpement-web-mobile' target='_blank'>Cliquez ici</a>"
+            },
+            "intelligence artificielle": {
+                reply: "La formation IA & Data Science couvre l’IA, le Machine Learning et le Big Data avec Python et TensorFlow. Parfaite pour les data scientists !",
+                suggestion: "Plus d’infos : <a href='https://www.epsi.fr/formation/intelligence-artificielle-data' target='_blank'>Cliquez ici</a>"
+            },
+            "cybersécurité": {
+                reply: "La formation Cybersécurité & Réseaux vous apprend à sécuriser systèmes et réseaux. Compétences : hacking éthique, réseaux.",
+                suggestion: "En savoir plus : <a href='https://www.epsi.fr/formation/cybersecurite-reseaux' target='_blank'>Cliquez ici</a>"
+            },
+            "durée": {
+                reply: "Les formations durent entre 2 ans (BTS) et 5 ans (Mastère), selon le niveau.",
+                suggestion: "Voir les programmes : <a href='https://www.epsi.fr/nos-formations' target='_blank'>Cliquez ici</a>"
+            },
+            "coût": {
+                reply: "Les frais varient (6 000 à 9 000 €/an). Contactez EPSI pour un devis précis.",
+                suggestion: "Formulaire : <a href='https://www.epsi.fr/contact' target='_blank'>Cliquez ici</a>"
+            },
+            "default": {
+                reply: "Je n’ai pas compris. Essayez ‘Développement web ?’, ‘Coût ?’ ou ‘Durée ?’.",
+                suggestion: "Explorez : <a href='https://www.epsi.fr/nos-formations' target='_blank'>Cliquez ici</a>"
+            }
+        };
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatbotInput.value.trim()) {
+                const userMessage = chatbotInput.value.trim().toLowerCase();
+                addMessage('Vous', userMessage);
+
+                let matchedResponse = responses["default"];
+                for (let key in responses) {
+                    if (userMessage.includes(key)) {
+                        matchedResponse = responses[key];
+                        break;
+                    }
+                }
+
+                setTimeout(() => {
+                    addMessage('Assistant EPSI', matchedResponse.reply);
+                    addMessage('Assistant EPSI', matchedResponse.suggestion);
+                }, 500);
+                chatbotInput.value = '';
+            }
+        });
+
+        function addMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '15px';
+            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>

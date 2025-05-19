@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - EPSI Étudiants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        :root {
+            --epsi-purple: #2B124C;
+            --epsi-yellow: #FFCC00;
+            --epsi-white: #FFFFFF;
+            --epsi-grey: #F5F5F5;
+            --epsi-dark-grey: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--epsi-grey);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header .logo img {
+            height: 50px;
+            width: auto;
+        }
+        header nav a {
+            color: var(--epsi-white);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: var(--epsi-yellow);
+        }
+        .hero {
+            background: linear-gradient(rgba(43, 18, 76, 0.8), rgba(43, 18, 76, 0.8)), url('https://via.placeholder.com/1600x600/2B124C/ffffff?text=Bienvenue+à+EPSI+Paris');
+            background-size: cover;
+            background-position: center;
+            color: var(--epsi-white);
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--epsi-yellow);
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        .cta {
+            display: inline-block;
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .cta:hover {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+        }
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: var(--epsi-purple);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .service {
+            background-color: var(--epsi-white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .service:hover {
+            transform: translateY(-5px);
+        }
+        .service h3 {
+            color: var(--epsi-purple);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .service p {
+            color: var(--epsi-dark-grey);
+            font-size: 1rem;
+        }
+        #campus {
+            background-color: var(--epsi-white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        #campus p {
+            color: var(--epsi-dark-grey);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #map #leaflet-map {
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #events, #reviews {
+            background-color: var(--epsi-grey);
+        }
+        .events-container, .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .event, .review {
+            background-color: var(--epsi-white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .event h3, .review h3 {
+            color: var(--epsi-purple);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .event p, .review p {
+            color: var(--epsi-dark-grey);
+            font-size: 1rem;
+        }
+        .sentiment-score {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: var(--epsi-white);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            display: none;
+        }
+        #chatbot.active {
+            display: block;
+        }
+        #chatbot-header {
+            background-color: var(--epsi-purple);
+            color: var(--epsi-white);
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            margin: -15px -15px 15px -15px;
+        }
+        #chatbot-messages {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        #chatbot-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--epsi-grey);
+            border-radius: 4px;
+        }
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--epsi-yellow);
+            color: var(--epsi-dark-grey);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #ai-suggestion {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4ff;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="C:\xampp\htdocs\projet_stage\epsi_300.jpg" alt="Logo EPSI">
+            </div>
+            <nav>
+                <a href="formation.html">Nos Formations</a>
+                <a href="info_ressource.html">Nos Services</a>
+                <a href="#services">Services</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Bienvenue sur la plateforme des étudiants étrangers de l'EPSI</h1>
+            <p>Facilitez votre expérience étudiante à EPSI Paris avec notre assistance intelligente. Posez vos questions via notre chatbot !</p>
+            <a href="info_ressource.html" class="cta">Découvrez nos services</a>
+            <a href="formulaire.html" class="cta" style="margin-left: 10px;">Accéder au Formulaire</a>
+        </section>
+
+        <section id="campus">
+            <h2>Notre Campus EPSI Paris</h2>
+            <p>Situé en plein cœur de Paris, notre campus EPSI est un lieu moderne et dynamique conçu pour favoriser l'apprentissage des étudiants dans les domaines de l'informatique et du numérique.</p>
+        </section>
+
+        <section id="services">
+            <h2>Nos Services</h2>
+            <div class="services-container">
+                <div class="service">
+                    <h3>Santé</h3>
+                    <p>Accédez à toutes les informations sur la couverture santé et bénéficiez de conseils pour vous soigner en France.</p>
+                </div>
+                <div class="service">
+                    <h3>Logement</h3>
+                    <p>Nous vous aidons à trouver un logement près du campus avec nos partenaires locaux.</p>
+                </div>
+                <div class="service">
+                    <h3>Administration</h3>
+                    <p>Des guides et des conseils pour vous aider à accomplir toutes vos démarches administratives, du visa à la sécurité sociale.</p>
+                </div>
+            </div>
+            <div id="ai-suggestion">
+                <h3>Suggestion IA</h3>
+                <p id="suggestion-text"></p>
+            </div>
+        </section>
+
+        <section id="map">
+            <h2>Carte interactive de nos campus</h2>
+            <div id="leaflet-map"></div>
+        </section>
+
+        <section id="events">
+            <h2>Événements et Actualités</h2>
+            <div class="events-container">
+                <div class="event">
+                    <h3>Rencontre avec les étudiants internationaux</h3>
+                    <p>Rejoignez-nous pour une session d'information sur l'intégration des étudiants internationaux à EPSI.</p>
+                </div>
+                <div class="event">
+                    <h3>Concours de Développement Web</h3>
+                    <p>Participez au concours de développement web pour mettre en pratique vos compétences.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <h2>Avis des Étudiants</h2>
+            <div class="reviews-container">
+                <div class="review">
+                    <h3>Alice - Étudiante en Informatique</h3>
+                    <p>"EPSI est une école incroyable. Le campus est moderne et bien équipé."</p>
+                    <div class="sentiment-score">Sentiment: Positif (0.85)</div>
+                </div>
+                <div class="review">
+                    <h3>Mohamed - Étudiant en Cybersécurité</h3>
+                    <p>"Les formations à EPSI sont très complètes et l'accompagnement est excellent."</p>
+                    <div class="sentiment-score">Sentiment: Positif (0.90)</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 EPSI. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Chatbot -->
+    <button id="chatbot-toggle">💬</button>
+    <div id="chatbot">
+        <div id="chatbot-header">Assistant EPSI</div>
+        <div id="chatbot-messages"></div>
+        <input type="text" id="chatbot-input" placeholder="Posez votre question...">
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Carte Leaflet
+        var map = L.map('leaflet-map').setView([46.603354, 1.888334], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var campuses = [
+            { name: "EPSI Paris", coords: [48.8566, 2.3522], url: "https://www.epsi.fr/campus/paris" },
+            { name: "EPSI Lyon", coords: [45.748046, 4.8467], url: "https://www.epsi.fr/campus/lyon" },
+            { name: "EPSI Toulouse", coords: [43.6047, 1.4442], url: "https://www.epsi.fr/campus/toulouse" },
+            { name: "EPSI Lille", coords: [50.6292, 3.0573], url: "https://www.epsi.fr/campus/lille" },
+            { name: "EPSI Bordeaux", coords: [44.8378, -0.5792], url: "https://www.epsi.fr/campus/bordeaux" },
+            { name: "EPSI Nantes", coords: [47.2186, -1.5542], url: "https://www.epsi.fr/campus/nantes" },
+            { name: "EPSI Rennes", coords: [48.1173, -1.6778], url: "https://www.epsi.fr/campus/rennes" }
+        ];
+        campuses.forEach(function(campus) {
+            var marker = L.marker(campus.coords).addTo(map);
+            marker.bindPopup("<b>" + campus.name + "</b><br><a href='" + campus.url + "' target='_blank'>Visitez le site du campus</a>");
+            marker.on('click', function() {
+                window.open(campus.url, '_blank');
+            });
+        });
+
+        // Chatbot amélioré
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbot = document.getElementById('chatbot');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbot.classList.toggle('active');
+            if (chatbot.classList.contains('active') && chatbotMessages.children.length === 0) {
+                addMessage('Assistant EPSI', 'Bonjour ! Comment puis-je vous aider aujourd’hui ? Posez-moi une question sur la santé, le logement, l’administration ou autre !');
+            }
+        });
+
+        const responses = {
+            "santé": [
+                "santé", "médecin", "mutuelle", "sécurité sociale", "soigner",
+                "Voici des infos sur la santé : vous pouvez vous inscrire à la Sécurité Sociale étudiante via le site ameli.fr. Besoin d’aide pour une mutuelle ou trouver un médecin ?"
+            ],
+            "logement": [
+                "logement", "appartement", "résidence", "dormir", "habiter",
+                "Pour le logement, nous collaborons avec des partenaires locaux. Voulez-vous des conseils pour trouver un appart près du campus ou des infos sur les résidences étudiantes ?"
+            ],
+            "administration": [
+                "administration", "visa", "titre de séjour", "papiers", "démarches",
+                "Pour les démarches administratives, je peux vous guider sur le visa, le titre de séjour ou la CAF. Quelle démarche vous pose problème ?"
+            ],
+            "salut": [
+                "salut", "bonjour", "hello", "coucou",
+                "Salut ! Ravi de vous aider. Quelle est votre question ?"
+            ],
+            "default": [
+                "", // Pas de mots-clés spécifiques
+                "Je suis là pour vous aider ! Essayez de me poser une question sur la santé, le logement, l’administration, ou dites-moi simplement ce dont vous avez besoin."
+            ]
+        };
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatbotInput.value.trim()) {
+                const userMessage = chatbotInput.value.trim().toLowerCase();
+                addMessage('Vous', userMessage);
+
+                // Recherche de la réponse appropriée
+                let matchedResponse = responses["default"][1];
+                for (let key in responses) {
+                    const keywords = responses[key][0].split(", ");
+                    if (keywords.some(keyword => userMessage.includes(keyword))) {
+                        matchedResponse = responses[key][1];
+                        break;
+                    }
+                }
+
+                setTimeout(() => addMessage('Assistant EPSI', matchedResponse), 500);
+                
+                // Suggestion IA
+                let suggestion = "";
+                if (userMessage.includes("santé") || userMessage.includes("médecin") || userMessage.includes("mutuelle")) suggestion = "Santé";
+                else if (userMessage.includes("logement") || userMessage.includes("appartement")) suggestion = "Logement";
+                else if (userMessage.includes("administration") || userMessage.includes("visa")) suggestion = "Administration";
+                
+                if (suggestion) {
+                    document.getElementById('ai-suggestion').style.display = 'block';
+                    document.getElementById('suggestion-text').textContent = `D’après votre question, je vous suggère de consulter notre section "${suggestion}" ci-dessus.`;
+                } else {
+                    document.getElementById('ai-suggestion').style.display = 'none';
+                }
+
+                chatbotInput.value = '';
+            }
+        });
+
+        function addMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '10px';
+            messageDiv.textContent = `${sender}: ${message}`;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>

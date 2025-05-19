@@ -1,0 +1,132 @@
+/* Style de base */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8; /* Fond clair pour l'ensemble de la page */
+}
+
+/* En-tête */
+header {
+    background-color: #0072bb; /* Bleu EPSI */
+    padding: 10px 20px; /* Espacement réduit */
+    display: flex; /* Utilisation de flexbox pour l'alignement */
+    align-items: center; /* Alignement vertical centré */
+}
+
+header .logo {
+    flex: 1; /* Le logo occupe l'espace à gauche */
+}
+
+header .logo img {
+    width: 150px; /* Taille du logo réduite */
+    height: auto; /* Conserve les proportions */
+}
+
+/* Section Héro */
+.hero {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #0072bb; /* Bleu EPSI pour le titre */
+}
+
+.hero p {
+    font-size: 18px;
+    color: #555;
+    margin: 20px 0;
+}
+
+.hero .cta {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #0072bb; /* Bouton bleu EPSI */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.hero .cta:hover {
+    background-color: #005f8a; /* Bleu plus foncé au survol */
+}
+
+/* Section Services */
+#services {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f0f4f8;
+}
+
+.services-container {
+    display: flex; /* Disposition horizontale */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+    gap: 20px; /* Espace entre chaque service */
+    flex-wrap: wrap; /* Permet la réorganisation sur petits écrans */
+}
+
+.service {
+    background-color: #ffffff;
+    border: 2px solid #0072bb;
+    padding: 20px;
+    width: 30%; /* Chaque service occupe 30% de la largeur */
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.service h3 {
+    color: #0072bb;
+}
+
+.service p {
+    color: #555;
+}
+
+.service:hover {
+    background-color: #0072bb;
+    color: #ffffff;
+}
+
+.service:hover h3 {
+    color: #ffffff;
+}
+
+#events h2 {
+            color: var(--epsi-blue);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0072bb;
+    color: white;
+}
+
+/* Liens */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .service {
+        width: 80%;
+    }
+}
